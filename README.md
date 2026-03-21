@@ -18,6 +18,10 @@ Dual-monitor Hyprland setup with a consistent Gruvbox dark theme across all apps
 | `home/` | `.bashrc` (aliases: `php`, `composer`) |
 | `wallpapers/` | Desktop wallpaper (`wall.jpg`) |
 
+## Current Setup
+<img width="1923" height="1080" alt="image" src="https://github.com/user-attachments/assets/187b210b-5350-47c8-888e-7d7018e349cf" />
+
+
 ## Install
 
 ```bash
