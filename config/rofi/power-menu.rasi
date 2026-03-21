@@ -1,0 +1,63 @@
+/* Gruvbox dark — matches Waybar style */
+
+* {
+    bg:          rgba(29, 32, 33, 0.92);
+    fg:          #ebdbb2;
+    fg-dim:      #a89984;
+    accent:      #fabd2f;
+    accent-dim:  rgba(215, 153, 33, 0.15);
+    urgent:      #fb4934;
+
+    background-color: transparent;
+    text-color:       @fg;
+    font:             "JetBrainsMono Nerd Font 13";
+}
+
+window {
+    background-color: @bg;
+    border:           2px;
+    border-color:     rgba(215, 153, 33, 0.6);
+    border-radius:    12px;
+    width:            160px;
+    padding:          4px;
+}
+
+mainbox {
+    background-color: transparent;
+    children:         [ listview ];
+    spacing:          0;
+}
+
+listview {
+    background-color: transparent;
+    lines:            5;
+    fixed-height:     true;
+    scrollbar:        false;
+    spacing:          2px;
+    padding:          2px;
+}
+
+element {
+    background-color: transparent;
+    padding:          8px 14px;
+    border-radius:    8px;
+    cursor:           pointer;
+    spacing:          0;
+}
+
+element normal.normal {
+    text-color: @fg-dim;
+}
+
+element selected.normal {
+    background-color: @accent-dim;
+    text-color:       @accent;
+    border:           0 0 2px 0;
+    border-color:     @accent;
+    border-radius:    8px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+}

@@ -1,0 +1,9 @@
+# Oracle Instant Client zips — get from onboarding-resources repo
+oracle/
+
+# Backup files created by install.sh
+*.bak
+
+# OS
+.DS_Store
+Thumbs.db
