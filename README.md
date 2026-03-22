@@ -9,7 +9,7 @@ Dual-monitor Hyprland setup with a consistent Gruvbox dark theme across all apps
 | Config | Description |
 |--------|-------------|
 | `hypr/` | Hyprland WM, hypridle, hyprlock, dual-monitor workspace script |
-| `waybar/` | Status bar (dual-monitor), power menu |
+| `waybar/` | Status bar (dual-monitor), power menu, VPN toggle |
 | `kitty/` | Terminal — Gruvbox, JetBrainsMono, 88% opacity |
 | `rofi/` | Power menu theme |
 | `wofi/` | App launcher |
@@ -68,6 +68,46 @@ bash scripts/dev-stack/install-oci8.sh
 | **Cursor** | breeze_cursors |
 | **Font (UI)** | JetBrainsMono Nerd Font |
 | **Font (GTK)** | Noto Sans |
+
+## VPN (OpenVPN)
+
+A custom Waybar module (`custom/vpn`) shows connection status and toggles on click.
+
+- **Connected** — shows `󰒃  VPN` in green, tooltip shows your VPN IP
+- **Disconnected** — shows `󰖂  VPN` in gray
+- **Left-click** — connects or disconnects
+
+The VPN config files live at `~/Developer/adnu/vpn/config/` and are **not** tracked in dotfiles (they contain certs/keys).
+
+### First-time setup on a new machine
+
+1. **Install OpenVPN:**
+   ```bash
+   sudo pacman -S openvpn
+   ```
+
+2. **Place your VPN config files** at `~/Developer/adnu/vpn/config/`:
+   - `mis-gene.ovpn`
+   - `ca.crt`, `mis-gene.crt`, `mis-gene-nopass.key`, `ta.key`
+
+3. **Strip the private key passphrase** (required for click-to-connect):
+   ```bash
+   cd ~/Developer/adnu/vpn/config
+   openssl rsa -in mis-gene.key -out mis-gene-nopass.key
+   chmod 600 mis-gene-nopass.key
+   ```
+   Then ensure `mis-gene.ovpn` references `mis-gene-nopass.key`.
+
+4. **Allow passwordless sudo** for openvpn commands:
+   ```bash
+   sudo tee /etc/sudoers.d/openvpn <<< "$(whoami) ALL=(ALL) NOPASSWD: /usr/bin/openvpn *, /usr/bin/killall openvpn"
+   sudo chmod 440 /etc/sudoers.d/openvpn
+   ```
+
+5. **Reload Waybar:**
+   ```bash
+   pkill waybar && waybar &
+   ```
 
 ## Monitors
 
