@@ -156,6 +156,26 @@ window#waybar {
     background-color: rgba(251, 73, 52, 0.3);
 }
 
+/* ===== VPN ===== */
+#custom-vpn {
+    padding: 0 12px;
+    color: #a89984;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+}
+
+#custom-vpn.connected {
+    color: #b8bb26;
+}
+
+#custom-vpn.disconnected {
+    color: #a89984;
+}
+
+#custom-vpn:hover {
+    background: rgba(235, 219, 178, 0.1);
+}
+
 /* ===== POWER BUTTON ===== */
 #custom-power {
     padding: 0 14px;

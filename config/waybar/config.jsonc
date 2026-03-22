@@ -12,7 +12,7 @@
 
     "modules-left": ["hyprland/window", "wlr/taskbar", "mpris"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["battery", "bluetooth", "network", "clock", "tray", "custom/power"],
+    "modules-right": ["battery", "bluetooth", "network", "custom/vpn", "clock", "tray", "custom/power"],
 
     "hyprland/workspaces": {
         "format": "{id}",
@@ -83,6 +83,14 @@
         "format-disconnected": "󰖪  Offline",
         "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}",
         "on-click": "nm-connection-editor"
+    },
+
+    "custom/vpn": {
+        "exec": "~/.config/waybar/scripts/vpn.sh",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "~/.config/waybar/scripts/vpn.sh toggle",
+        "tooltip": true
     },
 
     "bluetooth": {
