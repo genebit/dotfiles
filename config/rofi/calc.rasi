@@ -1,0 +1,73 @@
+/* Gruvbox dark — calculator mode */
+
+* {
+    bg:      rgba(29, 32, 33, 0.92);
+    fg:      #ebdbb2;
+    fg-dim:  #a89984;
+    accent:  #fabd2f;
+
+    background-color: transparent;
+    text-color:       @fg;
+    font:             "JetBrainsMono Nerd Font 13";
+}
+
+window {
+    background-color: @bg;
+    border:           2px;
+    border-color:     rgba(215, 153, 33, 0.6);
+    border-radius:    12px;
+    width:            500px;
+    padding:          4px;
+}
+
+mainbox {
+    background-color: transparent;
+    children:         [ inputbar, listview ];
+    spacing:          4px;
+    padding:          4px;
+}
+
+inputbar {
+    background-color: transparent;
+    padding:          8px 12px;
+    spacing:          8px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent;
+}
+
+entry {
+    text-color:   @fg;
+    cursor-color: @accent;
+    placeholder:  "e.g. 1+1, sqrt(2), 15% of 200";
+    placeholder-color: @fg-dim;
+}
+
+listview {
+    background-color: transparent;
+    lines:            1;
+    fixed-height:     true;
+    scrollbar:        false;
+    padding:          0 4px 4px;
+}
+
+element {
+    background-color: transparent;
+    padding:          8px 12px;
+    border-radius:    8px;
+}
+
+element selected.normal {
+    background-color: rgba(215, 153, 33, 0.15);
+    text-color:       @accent;
+    border:           0 0 2px 0;
+    border-color:     @accent;
+    border-radius:    8px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+}

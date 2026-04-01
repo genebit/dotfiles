@@ -70,7 +70,7 @@ PACMAN_PACKAGES=(
     xdg-desktop-portal-hyprland xdg-desktop-portal-kde
     qt5-wayland qt6-wayland
     # Bar / launcher / notifications
-    waybar wofi rofi dunst wlogout swww
+    waybar wofi rofi rofi-calc dunst wlogout swww
     # Terminal / file manager
     kitty thunar thunar-archive-plugin
     # Audio
