@@ -11,8 +11,7 @@ Dual-monitor Hyprland setup with a consistent Gruvbox dark theme across all apps
 | `hypr/` | Hyprland WM, hypridle, hyprlock, dual-monitor workspace script |
 | `waybar/` | Status bar (dual-monitor), power menu, VPN toggle |
 | `kitty/` | Terminal — Gruvbox, JetBrainsMono, 88% opacity |
-| `rofi/` | Power menu theme |
-| `wofi/` | App launcher |
+| `rofi/` | App launcher + power menu |
 | `gtk-3.0/4.0/` | Breeze dark theme, Papirus-Dark icons, breeze_cursors |
 | `cava/` | Waybar audio visualizer output |
 | `home/` | `.bashrc` (aliases: `php`, `composer`) |
@@ -62,12 +61,12 @@ bash scripts/dev-stack/install-oci8.sh
 | **WM** | Hyprland |
 | **Bar** | Waybar |
 | **Terminal** | Kitty |
-| **Launcher** | Wofi |
+| **Launcher** | Rofi |
 | **GTK theme** | Breeze |
 | **Icons** | Papirus-Dark |
 | **Cursor** | breeze_cursors |
-| **Font (UI)** | JetBrainsMono Nerd Font |
-| **Font (GTK)** | Noto Sans |
+| **Font (UI)** | Geist Mono |
+| **Font (GTK)** | Geist |
 
 ## VPN (OpenVPN)
 

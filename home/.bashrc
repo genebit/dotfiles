@@ -12,3 +12,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 alias composer='php81 /usr/bin/composer'
 alias php='php81'
+
+# tty-clock (gruvbox yellow, centered, bold, with seconds and date)
+alias clock='tty-clock -c -b -s -t -C 3 -f "%A, %B %d"'
