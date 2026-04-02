@@ -18,7 +18,8 @@ Dual-monitor Hyprland setup with a consistent Gruvbox dark theme across all apps
 | `wallpapers/` | Desktop wallpaper (`wall.jpg`) |
 
 ## Current Setup
-<img width="3841" height="1080" alt="image" src="https://github.com/user-attachments/assets/33535b52-0e53-4414-bcc9-9217241e61b0" />
+<img width="3841" height="1080" alt="image" src="https://github.com/user-attachments/assets/26b68773-f9de-4f39-a78d-046086bce99a" />
+
 
 ## Install
 
