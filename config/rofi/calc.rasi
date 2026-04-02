@@ -8,7 +8,7 @@
 
     background-color: transparent;
     text-color:       @fg;
-    font:             "JetBrainsMono Nerd Font 13";
+    font:             "Geist Mono 10";
 }
 
 window {
