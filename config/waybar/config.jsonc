@@ -86,10 +86,10 @@
     },
 
     "custom/vpn": {
-        "exec": "~/.config/waybar/scripts/vpn.sh",
+        "exec": "/home/gennux/.config/waybar/scripts/vpn.sh",
         "return-type": "json",
         "interval": 5,
-        "on-click": "~/.config/waybar/scripts/vpn.sh toggle",
+        "on-click": "bash -c '/home/gennux/.config/waybar/scripts/vpn.sh toggle'",
         "tooltip": true
     },
 
@@ -97,9 +97,14 @@
         "format": "  {status}",
         "format-connected": "  {device_alias}",
         "format-connected-battery": "  {device_alias} {device_battery_percentage}%",
-        "format-off": "  off",
-        "tooltip-format": "{controller_alias}\n{num_connections} connected",
-        "on-click": "blueman-manager"
+        "format-off": "󰂲  off",
+        "format-disabled": "󰂲",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "  {device_alias}",
+        "tooltip-format-enumerate-connected-battery": "  {device_alias}\t{device_battery_percentage}%",
+        "on-click": "blueman-manager",
+        "on-click-right": "rfkill toggle bluetooth"
     },
 
     "clock": {

@@ -1,5 +1,5 @@
 * {
-    font-family: "JetBrainsMono Nerd Font", "Noto Sans", "Font Awesome 6 Free";
+    font-family: "Geist Mono", "Noto Sans", "Font Awesome 6 Free";
     font-size: 13px;
     border: none;
     border-radius: 0;
@@ -12,7 +12,6 @@ window#waybar {
     background: rgba(29, 32, 33, 0.92);
     color: #ebdbb2;
     border-radius: 12px;
-    border-bottom: 2px solid rgba(215, 153, 33, 0.6);
 }
 
 /* ===== WORKSPACES ===== */
@@ -140,7 +139,22 @@ window#waybar {
 
 #bluetooth {
     padding: 0 12px;
+    color: #a89984;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+}
+
+#bluetooth.connected {
     color: #d3869b;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: rgba(168, 153, 132, 0.4);
+}
+
+#bluetooth:hover {
+    background: rgba(211, 134, 155, 0.15);
 }
 
 #tray {
