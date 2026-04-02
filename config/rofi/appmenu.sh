@@ -4,7 +4,7 @@ CACHE="$HOME/.cache/rofi-appmenu"
 
 # Execute selected app
 if [[ "$ROFI_RETV" == "1" ]]; then
-    gtk-launch "$ROFI_INFO" &
+    setsid gtk-launch "$ROFI_INFO" &>/dev/null &
     exit
 fi
 
