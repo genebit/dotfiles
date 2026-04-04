@@ -12,8 +12,8 @@ if [[ "$ROFI_RETV" == "1" ]]; then
 fi
 
 printf '\0markup-rows\x1ftrue\n'
-echo '<span foreground="#fe8019" size="x-small">⬤</span>  Lock\0info\x1flock'
-echo '<span foreground="#fe8019" size="x-small">⬤</span>  Logout\0info\x1flogout'
-echo '<span foreground="#fe8019" size="x-small">⬤</span>  Reboot\0info\x1freboot'
-echo '<span foreground="#fe8019" size="x-small">⬤</span>  Shutdown\0info\x1fshutdown'
-echo '<span foreground="#fe8019" size="x-small">⬤</span>  Suspend\0info\x1fsuspend'
+printf '<span foreground="#fe8019" size="x-small">⬤</span>  Lock\0info\x1flock\n'
+printf '<span foreground="#fe8019" size="x-small">⬤</span>  Logout\0info\x1flogout\n'
+printf '<span foreground="#fe8019" size="x-small">⬤</span>  Reboot\0info\x1freboot\n'
+printf '<span foreground="#fe8019" size="x-small">⬤</span>  Shutdown\0info\x1fshutdown\n'
+printf '<span foreground="#fe8019" size="x-small">⬤</span>  Suspend\0info\x1fsuspend\n'
