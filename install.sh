@@ -155,6 +155,9 @@ _link "$DOTFILES_DIR/config/cava"      "$HOME/.config/cava"
 _link "$DOTFILES_DIR/home/.bashrc"       "$HOME/.bashrc"
 _link "$DOTFILES_DIR/home/.bash_profile" "$HOME/.bash_profile"
 
+# Custom .desktop overrides
+_link "$DOTFILES_DIR/applications/figma-linux.desktop" "$HOME/.local/share/applications/figma-linux.desktop"
+
 # Make scripts executable
 chmod +x "$DOTFILES_DIR/config/hypr/scripts/workspace.sh"
 chmod +x "$DOTFILES_DIR/config/waybar/scripts/power-menu.sh"
