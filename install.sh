@@ -104,6 +104,8 @@ log "Pacman packages done."
 AUR_PACKAGES=(
     # Hyprland extras
     hyprswitch
+    # Web apps
+    webapp-manager
     # PHP 8.1 + extensions
     php81 php81-cli php81-fpm
     php81-curl php81-mbstring php81-xml php81-dom php81-zip
@@ -154,9 +156,6 @@ _link "$DOTFILES_DIR/config/cava"      "$HOME/.config/cava"
 # Shell files (link individual files, not the whole home dir)
 _link "$DOTFILES_DIR/home/.bashrc"       "$HOME/.bashrc"
 _link "$DOTFILES_DIR/home/.bash_profile" "$HOME/.bash_profile"
-
-# Custom .desktop overrides
-_link "$DOTFILES_DIR/applications/figma-linux.desktop" "$HOME/.local/share/applications/figma-linux.desktop"
 
 # Make scripts executable
 chmod +x "$DOTFILES_DIR/config/hypr/scripts/workspace.sh"
