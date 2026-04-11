@@ -66,11 +66,11 @@ PACMAN_PACKAGES=(
     # System / base
     base-devel git wget curl unzip jq
     # Hyprland stack
-    hyprland hyprpaper hypridle hyprlock hyprswitch
+    hyprland hyprpaper hypridle hyprlock
     xdg-desktop-portal-hyprland xdg-desktop-portal-kde
     qt5-wayland qt6-wayland
     # Bar / launcher / notifications
-    waybar wofi rofi rofi-calc dunst wlogout swww
+    waybar rofi rofi-calc dunst wlogout
     # Terminal / file manager
     kitty thunar thunar-archive-plugin
     # Audio
@@ -79,13 +79,13 @@ PACMAN_PACKAGES=(
     # Fonts
     ttf-jetbrains-mono-nerd ttf-firacode-nerd ttf-fira-code
     ttf-fira-sans ttf-liberation noto-fonts noto-fonts-emoji
-    woff2-font-awesome
+    woff2-font-awesome otf-geist-mono-nerd inter-font
     # GTK theme / icons / cursor
-    breeze-gtk papirus-folders
+    breeze-gtk
     # Screenshots / clipboard
     grim slurp wl-clipboard cliphist
     # Network / Bluetooth
-    networkmanager network-manager-applet bluez bluez-utils
+    networkmanager network-manager-applet bluez bluez-utils openvpn
     # Utilities
     brightnessctl fastfetch cava gsimplecal
     gum flatpak polkit-gnome
@@ -104,6 +104,10 @@ log "Pacman packages done."
 AUR_PACKAGES=(
     # Hyprland extras
     hyprswitch
+    # GTK theme / icons
+    papirus-folders
+    # Wallpaper daemon
+    swww
     # Web apps
     webapp-manager
     # PHP 8.1 + extensions
@@ -148,7 +152,6 @@ _link "$DOTFILES_DIR/config/hypr"      "$HOME/.config/hypr"
 _link "$DOTFILES_DIR/config/waybar"    "$HOME/.config/waybar"
 _link "$DOTFILES_DIR/config/kitty"     "$HOME/.config/kitty"
 _link "$DOTFILES_DIR/config/rofi"      "$HOME/.config/rofi"
-_link "$DOTFILES_DIR/config/wofi"      "$HOME/.config/wofi"
 _link "$DOTFILES_DIR/config/gtk-3.0"   "$HOME/.config/gtk-3.0"
 _link "$DOTFILES_DIR/config/gtk-4.0"   "$HOME/.config/gtk-4.0"
 _link "$DOTFILES_DIR/config/cava"      "$HOME/.config/cava"
@@ -159,7 +162,11 @@ _link "$DOTFILES_DIR/home/.bash_profile" "$HOME/.bash_profile"
 
 # Make scripts executable
 chmod +x "$DOTFILES_DIR/config/hypr/scripts/workspace.sh"
+chmod +x "$DOTFILES_DIR/config/hypr/scripts/tile-layout.sh"
 chmod +x "$DOTFILES_DIR/config/waybar/scripts/power-menu.sh"
+chmod +x "$DOTFILES_DIR/config/waybar/scripts/vpn.sh"
+chmod +x "$DOTFILES_DIR/config/rofi/appmenu.sh"
+chmod +x "$DOTFILES_DIR/config/rofi/powermenu.sh"
 
 log "Dotfiles symlinked."
 

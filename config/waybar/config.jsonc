@@ -86,10 +86,10 @@
     },
 
     "custom/vpn": {
-        "exec": "/home/gennux/.config/waybar/scripts/vpn.sh",
+        "exec": "$HOME/.config/waybar/scripts/vpn.sh",
         "return-type": "json",
         "interval": 5,
-        "on-click": "bash -c '/home/gennux/.config/waybar/scripts/vpn.sh toggle'",
+        "on-click": "bash -c '$HOME/.config/waybar/scripts/vpn.sh toggle'",
         "tooltip": true
     },
 
