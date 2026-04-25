@@ -1,10 +1,15 @@
 #!/bin/bash
 # Unified virtual desktop switching for dual-monitor setup
-# DP-3 (left):  workspaces 1-5
-# DP-2 (right): workspaces 6-10  (paired: 6=vd1, 7=vd2, 8=vd3, 9=vd4, 10=vd5)
+# First monitor (left):  workspaces 1-5
+# Second monitor (right): workspaces 6-10 (paired: 6=vd1, 7=vd2, 8=vd3, 9=vd4, 10=vd5)
 
 CMD=$1
 N=$2
+
+# Dynamically get monitor names
+MONITORS=($(hyprctl monitors -j | jq -r '.[] | .name'))
+LEFT_MON=${MONITORS[0]}
+RIGHT_MON=${MONITORS[1]:-${MONITORS[0]}} # Fallback to first if only one
 
 get_focused_monitor() {
     hyprctl monitors -j | jq -r '.[] | select(.focused==true) | .name'
@@ -14,7 +19,7 @@ get_current_vd() {
     local monitor=$1
     local ws
     ws=$(hyprctl monitors -j | jq -r ".[] | select(.name==\"$monitor\") | .activeWorkspace.id")
-    if [ "$monitor" = "DP-2" ]; then
+    if [ "$monitor" = "$RIGHT_MON" ] && [ "$LEFT_MON" != "$RIGHT_MON" ]; then
         echo $((ws - 5))
     else
         echo "$ws"
@@ -25,7 +30,12 @@ switch_both() {
     local n=$1
     local focused
     focused=$(get_focused_monitor)
-    hyprctl --batch "dispatch focusmonitor DP-3 ; dispatch workspace $n ; dispatch focusmonitor DP-2 ; dispatch workspace $((n + 5)) ; dispatch focusmonitor $focused"
+    
+    if [ "$LEFT_MON" = "$RIGHT_MON" ]; then
+        hyprctl dispatch workspace "$n"
+    else
+        hyprctl --batch "dispatch focusmonitor $LEFT_MON ; dispatch workspace $n ; dispatch focusmonitor $RIGHT_MON ; dispatch workspace $((n + 5)) ; dispatch focusmonitor $focused"
+    fi
 }
 
 switch_next() {

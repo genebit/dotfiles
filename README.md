@@ -2,24 +2,37 @@
 
 **Hyprland · Gruvbox Dark · EndeavourOS**
 
-Dual-monitor Hyprland setup with a consistent Gruvbox dark theme across all apps.
+A dual-monitor Hyprland setup featuring dynamic workspace pairing and a consistent Gruvbox dark theme.
 
 ## What's included
 
 | Config | Description |
 |--------|-------------|
-| `hypr/` | Hyprland WM, hypridle, hyprlock, dual-monitor workspace script |
+| `hypr/` | Hyprland WM, hypridle, hyprlock, dynamic workspace script |
 | `waybar/` | Status bar (dual-monitor), power menu, VPN toggle |
 | `kitty/` | Terminal — Gruvbox, JetBrainsMono, 88% opacity |
 | `rofi/` | App launcher + power menu |
-| `gtk-3.0/4.0/` | Breeze dark theme, Papirus-Dark icons, breeze_cursors |
+| `gtk-3.0/4.0/` | Breeze dark theme, Papirus-Dark icons |
 | `cava/` | Waybar audio visualizer output |
-| `home/` | `.bashrc` (aliases: `php`, `composer`) |
-| `wallpapers/` | Desktop wallpaper (`wall.jpg`) |
+| `home/` | `.bashrc` (aliases: `php`, `composer`, `clock`) |
+| `wallpapers/` | Desktop wallpaper managed by `swww` |
 
-## Current Setup
-<img width="3841" height="1080" alt="image" src="https://github.com/user-attachments/assets/26b68773-f9de-4f39-a78d-046086bce99a" />
+## Keybindings (The Essentials)
 
+| Keybind | Action |
+|---------|--------|
+| `SUPER + T` | Open Terminal (Kitty) |
+| `CTRL + Space` | App Launcher (Rofi) |
+| `SUPER + B` | Open Browser (Firefox) |
+| `SUPER + E` | File Manager (Thunar) |
+| `ALT + F4` | Close active window |
+| `SUPER + L` | Lock screen |
+| `SUPER + 1-5` | Switch "Virtual Desktop" (moves both monitors) |
+| `SUPER + SHIFT + 1-5` | Move window to Virtual Desktop |
+| `ALT + Tab` | Window Switcher (Hyprswitch) |
+| `SUPER + Arrows` | Move focus |
+| `SUPER + CTRL + Arrows` | Resize active window |
+| `SUPER + SHIFT + M` | Exit Hyprland (Logout) |
 
 ## Install
 
@@ -29,89 +42,39 @@ cd ~/dotfiles
 bash install.sh
 ```
 
-The installer will:
-1. Install `yay` if missing
-2. Install all pacman + AUR packages
-3. Symlink all configs to `~/.config/`
-4. Copy wallpaper to `~/Pictures/wallpapers/`
-5. Optionally set up the dev stack
+## Monitors & Workspaces
 
-## Dev stack (optional)
+This setup uses a **Virtual Desktop** concept for dual monitors:
+- **Monitor 1 (Left)**: Shows workspaces 1–5.
+- **Monitor 2 (Right)**: Shows workspaces 6–10.
+- When you switch to "Desktop 1" (`SUPER+1`), the left monitor shows workspace 1 and the right shows workspace 6.
 
-PHP 8.1 + OCI8 (Oracle), Redis, Composer v2, Node.js.
+**Dynamic Detection**: The `workspace.sh` script automatically detects your monitor names. It assigns the first monitor found by `hyprctl` as "Left" and the second as "Right". 
 
-Requires Oracle Instant Client 12c zips placed at:
-```
-oracle/libs/instantclient-basic-linux.x64-12.2.0.1.0.zip
-oracle/libs/instantclient-sdk-linux.x64-12.2.0.1.0.zip
-```
-Get them from the `onboarding-resources` repo → `drive/oracle/lib/linux/`.
+> **Customization**: If your monitors are swapped, edit `~/.config/hypr/hyprland.conf` to explicitly define your monitor names (e.g., `monitor = DP-1, 1920x1080, 0x0, 1`).
 
-To run standalone:
+## Dev stack (Optional)
+
+PHP 8.1 + OCI8 (Oracle), Composer v2, Node.js. 
+*Note: Redis is excluded as it is intended to be run via Docker.*
+
+**Prerequisites for OCI8**: 
+Place Oracle Instant Client 12c zips in `oracle/libs/`:
+- `instantclient-basic-linux.x64-12.2.0.1.0.zip`
+- `instantclient-sdk-linux.x64-12.2.0.1.0.zip`
+
+To install:
 ```bash
 bash scripts/dev-stack/install-dev-stack.sh
-bash scripts/dev-stack/install-oci8.sh
 ```
-
-## Theme
-
-| | |
-|---|---|
-| **Color scheme** | Gruvbox Dark |
-| **WM** | Hyprland |
-| **Bar** | Waybar |
-| **Terminal** | Kitty |
-| **Launcher** | Rofi |
-| **GTK theme** | Breeze |
-| **Icons** | Papirus-Dark |
-| **Cursor** | breeze_cursors |
-| **Font (UI)** | Geist Mono |
-| **Font (GTK)** | Geist |
 
 ## VPN (OpenVPN)
 
-A custom Waybar module (`custom/vpn`) shows connection status and toggles on click.
+The Waybar module (`custom/vpn`) toggles your connection on click. It looks for configs in `~/Developer/adnu/vpn/config/`.
 
-- **Connected** — shows `󰒃  VPN` in green, tooltip shows your VPN IP
-- **Disconnected** — shows `󰖂  VPN` in gray
-- **Left-click** — connects or disconnects
-
-The VPN config files live at `~/Developer/adnu/vpn/config/` and are **not** tracked in dotfiles (they contain certs/keys).
-
-### First-time setup on a new machine
-
-1. **Install OpenVPN:**
-   ```bash
-   sudo pacman -S openvpn
-   ```
-
-2. **Place your VPN config files** at `~/Developer/adnu/vpn/config/`:
-   - `mis-gene.ovpn`
-   - `ca.crt`, `mis-gene.crt`, `mis-gene-nopass.key`, `ta.key`
-
-3. **Strip the private key passphrase** (required for click-to-connect):
-   ```bash
-   cd ~/Developer/adnu/vpn/config
-   openssl rsa -in mis-gene.key -out mis-gene-nopass.key
-   chmod 600 mis-gene-nopass.key
-   ```
-   Then ensure `mis-gene.ovpn` references `mis-gene-nopass.key`.
-
-4. **Allow passwordless sudo** for openvpn commands:
+1. **Place certs/keys** in the directory above.
+2. **Allow passwordless sudo** for the toggle to work:
    ```bash
    sudo tee /etc/sudoers.d/openvpn <<< "$(whoami) ALL=(ALL) NOPASSWD: /usr/bin/openvpn *, /usr/bin/killall openvpn"
    sudo chmod 440 /etc/sudoers.d/openvpn
    ```
-
-5. **Reload Waybar:**
-   ```bash
-   pkill waybar && waybar &
-   ```
-
-## Monitors
-
-Default config assumes:
-- `DP-3` — left monitor, workspaces 1–5
-- `DP-2` — right monitor, workspaces 6–10 (paired with left)
-
-Edit `config/hypr/hyprland.conf` monitor/workspace lines to match your setup.

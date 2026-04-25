@@ -1,38 +1,34 @@
 #!/bin/bash
 # Development Stack Installer for EndeavourOS (Arch-based)
-# Installs: PHP 8.1 + OCI8, Redis, Composer v2, Oracle Instant Client 12c, Node.js
+# Installs: PHP 8.1 + OCI8, Composer v2, Oracle Instant Client 12c, Node.js
 set -e
 
-ORACLE_LIBS="/home/gennux/Developer/adnu/hris/oracle/libs"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+ORACLE_LIBS="$DOTFILES_DIR/oracle/libs"
 ORACLE_EXTRACT_DIR="/opt/oracle"
 ORACLE_DIR="/opt/oracle/instantclient_12_2"
 
 echo ""
 echo "========================================================"
-echo "  Dev Stack Installer: PHP 8.1 + OCI8, Redis, Node.js"
+echo "  Dev Stack Installer: PHP 8.1 + OCI8, Node.js"
 echo "  Composer v2, Oracle Instant Client 12c"
 echo "========================================================"
 echo ""
 
 # ─── Step 1: System Dependencies ─────────────────────────────────────────────
-echo "[1/8] Installing system dependencies..."
+echo "[1/7] Installing system dependencies..."
 sudo pacman -S --noconfirm --needed libaio autoconf gcc make unzip
 
-# ─── Step 2: Redis ────────────────────────────────────────────────────────────
-echo "[2/8] Installing Redis..."
-sudo pacman -S --noconfirm --needed redis
-sudo systemctl enable redis
-sudo systemctl start redis
-echo "  Redis installed and started."
-
-# ─── Step 3: Node.js ──────────────────────────────────────────────────────────
-echo "[3/8] Installing Node.js..."
+# ─── Step 2: Node.js ──────────────────────────────────────────────────────────
+echo "[2/7] Installing Node.js..."
 sudo pacman -S --noconfirm --needed nodejs npm
 node --version
 npm --version
 
-# ─── Step 4: PHP 8.1 + Extensions ────────────────────────────────────────────
-echo "[4/8] Installing PHP 8.1 and extensions from AUR..."
+# ─── Step 3: PHP 8.1 + Extensions ────────────────────────────────────────────
+echo "[3/7] Installing PHP 8.1 and extensions from AUR..."
 yay -S --noconfirm --needed \
     php81 \
     php81-cli \
@@ -47,7 +43,6 @@ yay -S --noconfirm --needed \
     php81-bcmath \
     php81-pdo \
     php81-mysql \
-    php81-redis \
     php81-tokenizer \
     php81-simplexml \
     php81-xmlreader \
@@ -68,8 +63,8 @@ yay -S --noconfirm --needed \
 echo "  PHP 8.1 installed."
 php81 --version
 
-# ─── Step 5: Composer v2 ──────────────────────────────────────────────────────
-echo "[5/8] Installing Composer v2..."
+# ─── Step 4: Composer v2 ──────────────────────────────────────────────────────
+echo "[4/7] Installing Composer v2..."
 sudo pacman -S --noconfirm --needed composer
 COMPOSER_VER=$(composer --version)
 echo "  $COMPOSER_VER"
@@ -79,9 +74,15 @@ if composer --version | grep -q "Composer version 1"; then
     sudo composer self-update --2
 fi
 
-# ─── Step 6: Oracle Instant Client 12c ───────────────────────────────────────
-echo "[6/8] Setting up Oracle Instant Client 12c..."
+# ─── Step 5: Oracle Instant Client 12c ───────────────────────────────────────
+echo "[5/7] Setting up Oracle Instant Client 12c..."
 sudo mkdir -p "$ORACLE_EXTRACT_DIR"
+
+if [ ! -d "$ORACLE_LIBS" ]; then
+    echo "  ERROR: Oracle library directory not found at $ORACLE_LIBS"
+    echo "  Please ensure you have placed the Oracle zips in the 'oracle/libs' folder of this repo."
+    exit 1
+fi
 
 echo "  Extracting instantclient-basic..."
 sudo unzip -o "$ORACLE_LIBS/instantclient-basic-linux.x64-12.2.0.1.0.zip" \
@@ -110,8 +111,8 @@ echo "$ORACLE_DIR" | sudo tee /etc/ld.so.conf.d/oracle-instantclient.conf > /dev
 sudo ldconfig
 echo "  Oracle Instant Client configured at $ORACLE_DIR"
 
-# ─── Step 7: OCI8 PHP Extension ──────────────────────────────────────────────
-echo "[7/8] Installing OCI8 extension for PHP 8.1..."
+# ─── Step 6: OCI8 PHP Extension ──────────────────────────────────────────────
+echo "[6/7] Installing OCI8 extension for PHP 8.1..."
 
 # Determine pecl binary for php81
 PECL_BIN=""
@@ -141,8 +142,8 @@ ORACLE_HOME="$ORACLE_DIR" \
 PHP_DTRACE=no \
     echo "instantclient,$ORACLE_DIR" | sudo -E "$PECL_BIN" install oci8-3.3.0
 
-# ─── Step 8: Configure OCI8 extension ────────────────────────────────────────
-echo "[8/8] Configuring OCI8 in PHP 8.1..."
+# ─── Step 7: Configure OCI8 extension ────────────────────────────────────────
+echo "[7/7] Configuring OCI8 in PHP 8.1..."
 
 # Detect PHP 8.1 config directory
 PHP81_CONF_DIR=""

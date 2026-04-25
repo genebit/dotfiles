@@ -114,7 +114,7 @@ AUR_PACKAGES=(
     php81 php81-cli php81-fpm
     php81-curl php81-mbstring php81-xml php81-dom php81-zip
     php81-gd php81-intl php81-bcmath php81-pdo php81-mysql
-    php81-redis php81-tokenizer php81-simplexml php81-xmlreader
+    php81-tokenizer php81-simplexml php81-xmlreader
     php81-xmlwriter php81-fileinfo php81-openssl php81-ctype
     php81-phar php81-iconv php81-exif php81-pcntl php81-posix
     php81-sodium php81-opcache php81-sockets php81-pear
@@ -129,9 +129,6 @@ log "AUR packages done."
 info "Enabling system services..."
 sudo systemctl enable --now NetworkManager
 sudo systemctl enable --now bluetooth
-sudo systemctl enable --now valkey      2>/dev/null \
-    || sudo systemctl enable --now redis 2>/dev/null \
-    || warn "Redis/Valkey service not found — skipping."
 log "Services enabled."
 
 # ─── Dotfiles symlinks ───────────────────────────────────────────────────────
