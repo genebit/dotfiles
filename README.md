@@ -4,6 +4,9 @@
 
 A dual-monitor Hyprland setup featuring dynamic workspace pairing and a consistent Gruvbox dark theme.
 
+## Current Setup
+<img width="3841" height="1080" alt="image" src="https://github.com/user-attachments/assets/26b68773-f9de-4f39-a78d-046086bce99a" />
+
 ## What's included
 
 | Config | Description |
