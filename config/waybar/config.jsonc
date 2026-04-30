@@ -12,7 +12,7 @@
 
     "modules-left": ["hyprland/window", "wlr/taskbar", "mpris"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["battery", "bluetooth", "network", "custom/vpn", "clock", "tray", "custom/power"],
+    "modules-right": ["bluetooth", "network", "custom/vpn", "clock", "tray", "custom/power"],
 
     "hyprland/workspaces": {
         "format": "{id}",
